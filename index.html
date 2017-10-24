@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="editer.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://fabricjs.com/lib/fabric.js"></script>
+    <script src="editer.js"></script>
+</head>
+<body>
+    <div id="flying_tab">
+        <input type="button" id="btn" onclick="trsvg_fun();" value="출력">
+            <div id="pick">
+                <div id="#000000" class="color black"></div>
+                <div id="#FFFFFF" class="color white"></div>
+                <div id="#FF0000" class="color red" ></div>
+                <div id="#00FF00" class="color green" ></div><br>
+                <div id="#0000FF" class="color blue" ></div>
+                <div id="#FFFF00" class="color yellow"></div>
+                <div id="#00FFFF" class="color bluish_green" ></div>
+                <div id="#FF00FF" class="color purple" ></div>
+            </div>
+            <div id="button">
+                <input type="color" id="choose_color"><br>
+                <p id="info_pen_width">20</p><input type="range" min="0" max="150" value="20" id="change_pen_width"><br>
+                <p id="info_play_sec">0</p><input type="text" min="0" max="10" value="0" id="change_play_sec">
+                <div id="choose_Pen_mode">
+                    <input type="radio" name="Choose_Mode" checked="true" id="Pencil">펜 
+                    <input type="radio" name="Choose_Mode" id="Circle">원 
+                </div>
+                
+                
+                <button id="clear-canvas">전체 지우기</button>
+            </div>
+    </div>
+    
+    
+    
+    <canvas id="c" height="600" width="1000"></canvas>
+
+
+    <div id="svg-tag">
+    </div>
+    <div id="JSON_convert">
+
+    </div>
+    <script>
+        var trsvg;
+        var except_string_1 = /e/;
+        var except_string_2 = /E/;
+        var except_string_3 = /ㄷ/;
+        var sec = 0;
+        var drawing_tab = 0;
+        var goto_sever_Array = new Array();
+        var pic_Info = new Object();
+        var goto_sever_JSON;
+
+        var trsvg_fun = function(){
+            trsvg = canvas.toSVG();
+            $('#svg-tag').html(trsvg);
+
+            pic_Info.svg = trsvg;
+            pic_Info.sec = sec;
+            goto_sever_Array[drawing_tab] = pic_Info;
+            
+            goto_sever_JSON = JSON.stringify(goto_sever_Array);
+
+            $('#JSON_convert').text(goto_sever_JSON);
+            function fileSubmit() {
+                $.ajax({
+                    type : 'post',
+                    url : 'fileUpload',
+                    data : trsvg,
+                    processData : false,
+                    contentType : false,
+                    success : function(html) {
+                        alert("파일 업로드하였습니다.");
+                    },
+                    error : function(error) {
+                      alert("파일 업로드에 실패하였습니다.");
+                      console.log(error);
+                      console.log(error.status);
+                    }
+                });
+            }
+        };
+        
+        $('#change_pen_width').change(function(){
+            width = $('#change_pen_width').val();
+            console.log("굵기 : "+width);
+            $('#info_pen_width').text(width);
+            canvas.freeDrawingBrush.width = parseInt(width,10) || 1;
+            })
+
+        $('#change_play_sec').change(function(){
+            sec = $('#change_play_sec').val();
+            if($('#change_play_sec').val()>=0 && $('#change_play_sec').val() <=10){}
+            else if($('#change_play_sec').val() <0){
+                alert($('#change_play_sec').val()+"은(는) 입력할 수 없습니다\n0이상 10이하인 실수를 입력해주십시요.");
+                $('#change_play_sec').val(0);
+            }
+            else if($('#change_play_sec').val()>10){
+                alert($('#change_play_sec').val()+"은(는) 입력할 수 없습니다\n0이상 10이하인 실수를 입력해주십시요.");
+                $('#change_play_sec').val(10);
+            }
+            else if(Number.isInteger(sec) == false || except_string_1.test(sec)==false || except_string_2.test($('#change_play_sec').val())==false || except_string_3.test($('#change_play_sec').val())==false){
+                alert($('#change_play_sec').val()+"은(는) 입력할 수 없습니다\n0이상 10이하인 실수를 입력해주십시요.");
+                $('#change_play_sec').val(0);
+            }
+            else{
+                alert($('#change_play_sec').val()+"은(는) 입력할 수 없습니다\n0이상 10이하인 실수를 입력해주십시요.");
+                $('#change_play_sec').val(0);
+            }
+            sec = $('#change_play_sec').val();
+            console.log("재생시간 : "+sec+"초");
+            $('#info_play_sec').text(sec);
+        })
+
+        document.getElementById('choose_Pen_mode').addEventListener('click', function(e) {
+            mode = e.target.id;
+            console.log("Free Drowing Mode : "+mode);
+            canvas.freeDrawingBrush = new fabric[mode + 'Brush'](canvas);
+            canvas.freeDrawingBrush.width = parseInt(width,10) || 1;
+        });
+    </script>
+</body>
+</html>

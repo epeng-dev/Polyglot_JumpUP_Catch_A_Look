@@ -36,3 +36,9 @@ Catch a look
 - Fabric.js를 이용한 gif혹은 png 출력
 - 서버는 Spring을 이용
 - 데이터베이스는 MariaDB를 사용
+
+
+## 주의사항
+- 현재 구현되어 있는 부분은 그림판 editer부분입니다.
+- 실행이 안될 경우에는 주소창에서 스크립트를 꼭 로드해주셔야됩니다.
+- [editer 링크](https://backgwangm.github.io/Catch_A_Look/index.html)

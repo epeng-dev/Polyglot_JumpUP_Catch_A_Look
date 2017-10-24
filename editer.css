@@ -1,0 +1,58 @@
+#pick{
+    margin-top: 3vh;
+}
+#button{
+    margin-top: 3vh;
+}
+#flying_tab{
+    position: fixed;
+    top:25vh;
+    right: 1vw;
+    background-color: #BBBBBB;
+    height: 50vh;
+    width: 15vw;
+}
+#info_pen_width{
+    display: inline-block;
+}
+#info_play_sec{
+    display: inline-block;
+}
+.color{
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    border: 3px solid #555555;
+    margin-bottom: 1px;
+    border-radius:10px;
+    -webkit-border-radius:10px;
+    
+}
+.white{
+    background-color: #FFFFFF;
+}
+.black{
+    background-color: #000000;
+}
+.red{
+    background-color: #FF0000;
+}
+.green{
+    background-color: #00ff00;
+}
+.blue{
+    background-color: #0000ff;
+}
+.yellow{
+    background-color: #FFff00;
+}
+.bluish_green{
+    background-color: #00ffff;
+}
+.purple{
+    background-color: #ff00ff;
+}
+
+.pick_color{
+    border: 3px solid #F57600;
+}
