@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게임 대기실</title>
+    <link rel="stylesheet" href="../font.css">
+    <link rel="stylesheet" href="css/drawing.css">
+    <link rel="stylesheet" href="css/users_game_room.css">
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>    
+</head>
+<body>
+    <div id="background">
+    </div>
+    <div id="waiting_menu" onclick="test()">
+        <span id="waiting_room">게임 대기실</span>
+    </div>
+
+    
+	<div id="chat">
+            <div id="chat_title">
+                <span>채팅창</span>
+            </div>
+            <div id="chating_list">
+                
+            </div>
+            <input type="text" id="chat_input">
+        </div>
+        <div id="member">
+                
+        </div>
+        <script>
+            var i = 0;
+            var test = function(){
+                if(i < 6)
+                $('#member').append('<div class="room_select"><p class="room_name">뀨규규</p><span class="room_member">Lv. 1</span></div>');
+                i++;  
+            }
+       </script>
+</body>
+</html>

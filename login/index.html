@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+    <link rel="stylesheet" href="login.css">
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+	<form method="post">
+	<div id="login" onclick="ani_log()">
+    	<span class="title" id="login_t">SIGN IN</span>
+			<div id="input">
+            	<p class="span" id="id_span">ID</p>
+                <input type="text" name="id" id="id" required/>
+                <p class="span" id="pw_span">PW</p>
+                <input type="password" name="pw" id="pw" onfocus="on_login()" required/>
+            </div>
+            <div class="login_btn" style="top:2vh;">
+            	<input type="button" value="Sign In" id="submit" onclick="openChild()">
+            </div>
+    </div> 
+        </form>
+           
+        
+    
+    
+    <div id="join" onclick="ani_join()">
+        <form method="post">
+                <span class="title change_title_login" id="join_t">CREATE ACCOUNT</span>
+                <div id="join_input" class="hidden">
+                        <p class="span" id="id_join_span">ID</p>
+                        <input type="text" name="id" id="id_join" required/>
+                        <p class="span" id="pw_join_span">PW</p>
+                        <input type="password" name="pw" id="pw_join" required/>
+                        <p class="span" id="repeat_pw_span">Repeat PW</p>
+                        <input type="password" name="pw" id="pw_repeat_join" required/>
+                        <div id="input_2nd">
+                            <p class="span" id="nick_join_span">nickname</p>
+                            <input type="text" name="id" id="nick_join" required/>
+                            <p class="span" id="email_join_span">email</p>
+                            <input type="text" name="id" id="email_join" required/>
+                            <div class="login_btn">
+                                <button id="Join_in">Join in</button>
+                            </div>
+                    </div>
+                    
+                </div>
+        </form>
+        
+
+    </div>
+    <script>
+    function cheak_input(){
+            if($("id_join").val() == null || $("pw_join").val() == null || $("pw_repeat_join").val() == null || $("nick_join").val() == null || $("email_join").val() == null){
+
+        }
+    }
+        function cheak_email(){
+            var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+            if($("input").val().match(regExp) == null){
+                alert("입력되지 않은 부분이 있습니다. 다시 입력해주시기 바랍니다.");
+            }
+        }
+        function variable(){
+            var join = document.getElementById('join');
+            var login = document.getElementById('login');
+            var join_t = document.getElementById('join_t');
+            var login_t = document.getElementById('login_t');
+            var submit = document.getElementById('submit');
+            var join_input = document.getElementById('join_input');
+        }
+        function ani_join(){
+            variable();
+                join.classList.remove('change_l');
+                login.classList.remove('change_j');
+                join.classList.add('change_j');
+                login.classList.add('change_l');
+                login_t.classList.add('change_title_join');
+                join_t.classList.remove('change_title_login');
+                join_input.classList.remove('hidden');
+        }
+        function ani_log(){
+            variable();
+                login.classList.remove('change_l');
+                join.classList.remove('change_j');
+                login.classList.add('change_j');
+                join.classList.add('change_l');
+                join_t.classList.add('change_title_login');
+                login_t.classList.remove('change_title_join');
+                join_input.classList.add('hidden');
+                
+                
+        }
+        function on_login(){
+            variable();
+            submit.classList.add('submit_on');
+        }
+
+        var openWin;
+    
+        function openChild()
+        {
+            // window.name = "부모창 이름"; 
+            window.name = "parentForm";
+            // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+            openWin = window.open("../waiting_room/index.html", "childForm", "width=1280, height=700, scrollbars=no, resizable=no, toolbars=no, menubar=no");  
+        }
+    </script>
+
+</body>
+</html>

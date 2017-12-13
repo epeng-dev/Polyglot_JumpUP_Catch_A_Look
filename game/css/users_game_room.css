@@ -1,0 +1,191 @@
+#room_title{
+    background-color: white;
+    position: absolute;
+    width: 55vw;
+    height: 15vh;
+    border-radius: 3vh;
+    top:8vh;
+    left: 6vw;
+}
+
+#drawing_panel{
+    background-color: white;
+    position: absolute;
+    width: 55vw;
+    top:25vh;
+    left: 6vw;
+    height: 52.5vh;
+    border-radius: 3vh;
+}
+
+#check_title{
+    font-size: 4vh;
+    position: absolute;
+    top:79.5vh;
+    left: 6vw;
+    font-weight: 700;
+}
+
+#input_answer{
+    font-family: 'NanumSquare';
+    font-weight: 300;
+    width: 55vw;
+    position: absolute;
+    top:85vh;
+    left: 6vw;
+    font-size: 4vh;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    padding-left: 0.5vw;
+    border: 0;
+    border-radius: 1vh;
+}
+
+input:focus{
+    outline: none;
+}
+#chat{
+	background-color: rgba(255,255,255,0.75);
+	position: absolute;
+	top: 8vh;
+	right: 7.5vw;
+	height: 80.5vh;
+	width: 27.5vw;
+	border-radius: 2vh;
+	z-index: 7;
+}
+
+#chat_title{
+	background-color: rgba(255,255,255,0.75);
+	position: relative;
+	top:2vh;
+	width: 26.125vw;
+	height: 10vh;
+	font-size: 4vh;
+	color: #FFAEAE;
+	font-weight: 700;
+	z-index: 8;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	left: 0.6875vw;
+	border-radius: 2.5vh;
+}
+
+#chating_list{
+	position: relative;
+	top:3vh;
+	left: 0.725vw;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	width: 26.125vw;
+	height: 59vh;
+	z-index: 8;
+	font-size: 3vh;
+}
+
+#chating_list p{
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+}
+.nickname{
+	font-weight: 700;
+}
+
+#chat_input{
+	position: relative;
+	top:3vh;
+	left: 0.6875vw;
+	font-size: 4vh;
+	border-radius: 1vh;
+	width: 25.25vw;
+	font-weight: 500;
+	font-family: 'NanumSquare';
+	color: #512323;
+	border: 0.1vh solid #512323;
+	padding-top: 1vh;
+	padding-bottom: 1vh;
+	padding-left: 0.5vw;
+}
+#waiting_menu{
+	position: absolute;
+	top: 8vh;
+	width: 55vw;
+	left: 6vw;
+	height: 15vh;
+	background-color: #FFFFFF;
+	border-radius: 2vh;
+	display: flex;
+	align-items: center;
+	padding-left: 2vw;
+	z-index: 2;
+}
+#waiting_menu span{
+	font-size: 7.5vh;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+#make_room{
+	font-size: 6.5vh;
+	position: absolute;
+	left: 44.5vw;
+	top:17.5vh;
+	height: 15vh;
+	cursor: pointer;
+	background-color: #FFFFFF;
+	border-radius: 2vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 17vw;
+	font-weight: 700;
+	z-index: 2;
+}
+.room_select .room_member{
+	position: relative;
+	top:6.5vh;
+	left: 4vw;
+	font-size: 2.5vh;
+	background-color: #E2F982;
+	padding-right: 1vw;
+	padding-left: 1vw;
+	padding-top: 1vh;
+	padding-bottom: 1vh;
+	border-radius: 2vh;
+}
+.room_select{
+	height: 15vh;
+	width: 15vw;
+	margin-right: 1vw;
+	margin-top: 3vh;
+	background-color: white;
+	border-radius: 2.5vh;
+	padding-top: 1vh;
+	padding-left: 1vw;
+	cursor: pointer;
+	float: left;
+	animation-name: appear;
+	animation-duration: 0.5s;
+}
+
+.room_select .room_name{
+	font-size: 3vh;
+	font-weight: 700;
+	margin: 0 0 0 0;
+}
+#member{
+	position: absolute;
+	top:25vh;
+	left: 9vw;
+	width: 60vw;
+}
+
+@keyframes appear{
+	from{
+		margin-top:5vh;
+	}
+	to{
+		margin-top:3vh;
+	}
+}

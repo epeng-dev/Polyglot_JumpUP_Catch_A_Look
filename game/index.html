@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Drawing Time!</title>
+    <link rel="stylesheet" href="css/Drawing_time.css">
+    <link rel="stylesheet" href="./font.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="fabric.js"></script>
+    <script src="editer.js"></script>
+    <script src="Drawing.js"></script>
+    <link rel="stylesheet" href="range.css">
+</head>
+<body>
+    <div id="Title_Bar">
+        <div id="Title_text">Drawing Time</div>
+    </div>
+    <div id="pick_picture">
+
+    </div>
+    <div id='canvas_border' style='width:1000px; height:500px'><canvas id='c' height='500' width='1000'></canvas></div>
+    <div id="Drawing_menu">
+        
+        
+        <div id="button">
+                <div class="menu_title">
+                        색
+                    </div>
+            <div id="pick">
+                <div id="#000000" class="color black"></div> 
+                <div id="#FFFFFF" class="color white"></div> 
+                <div id="#FF0000" class="color red" ></div> 
+                <div id="#00FF00" class="color green" ></div ><br>
+                <div id="#0000FF" class="color blue" ></div> 
+                <div id="#FFFF00" class="color yellow"></div> 
+                <div id="#00FFFF" class="color bluish_green" > </div>
+                <div id="#FF00FF" class="color purple" ></div><br>
+            </div>
+            <input type="color" id="choose_color">
+            <hr>
+            <div class="menu_title">
+                펜 굵기
+            </div>
+            <div id="pen_width"><div id="info_pen_width">20</div></div><input type="range" min="1" max="150" value="20" id="change_pen_width">
+            <hr>
+            <button id="clear-canvas" onclick="all_clear();">전체 지우기</button>
+            
+        </div>
+        <div id="btn_div">
+            <button id="btn" onclick="trsvg_fun();">Drawing Finsh!</button>
+        </div>
+    </div>
+    <input type="hidden" id="sdfs"></input>
+
+    <script>
+        var width;
+        var trsvg_fun = function(){
+            var trsvg = canvas.toSVG();
+            $('#sdfs').val(trsvg);
+            console.log($('#sdfs').val());
+                $.ajax({
+                    type : 'post',
+                    url : 'test.html',
+                    data : {'text':$('#sdfs').val()},
+                    processData : true,
+                    /*contentType : false,*/
+                    success : function(html) {
+                        alert(html);
+                        alert("파일 업로드하였습니다.");
+                    },
+                    error : function(error) {
+                      alert("파일 업로드에 실패하였습니다.");
+                      console.log(error);
+                      console.log(error.status);
+                    }
+                });
+            };
+            
+        $('#change_pen_width').change(function(){
+            width = $('#change_pen_width').val();
+            console.log("굵기 : "+width);
+            $('#info_pen_width').text(width);
+            canvas.freeDrawingBrush.width = parseInt(width,10) || 1;
+            });
+    </script>
+</body>
+</html>+

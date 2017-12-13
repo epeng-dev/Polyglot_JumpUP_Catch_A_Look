@@ -5,7 +5,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="editer.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="http://fabricjs.com/lib/fabric.js"></script>
+    <script src="fabric.js"></script>
     <script src="editer.js"></script>
 </head>
 <body>
@@ -25,18 +25,10 @@
                 <input type="color" id="choose_color"><br>
                 <p id="info_pen_width">20</p><input type="range" min="0" max="150" value="20" id="change_pen_width"><br>
                 <p id="info_play_sec">0</p><input type="text" min="0" max="10" value="0" id="change_play_sec">
-                <div id="choose_Pen_mode">
-                    <input type="radio" name="Choose_Mode" checked="true" id="Pencil">펜 
-                    <input type="radio" name="Choose_Mode" id="Circle">원 
-                </div>
-                
-                
                 <button id="clear-canvas">전체 지우기</button>
             </div>
     </div>
-    
-    
-    
+        
     <canvas id="c" height="600" width="1000"></canvas>
 
 
@@ -59,7 +51,7 @@
         var trsvg_fun = function(){
             trsvg = canvas.toSVG();
             $('#svg-tag').html(trsvg);
-
+            pic_Info.No = drawing_tab;
             pic_Info.svg = trsvg;
             pic_Info.sec = sec;
             goto_sever_Array[drawing_tab] = pic_Info;
@@ -115,13 +107,6 @@
             sec = $('#change_play_sec').val();
             console.log("재생시간 : "+sec+"초");
             $('#info_play_sec').text(sec);
-        })
-
-        document.getElementById('choose_Pen_mode').addEventListener('click', function(e) {
-            mode = e.target.id;
-            console.log("Free Drowing Mode : "+mode);
-            canvas.freeDrawingBrush = new fabric[mode + 'Brush'](canvas);
-            canvas.freeDrawingBrush.width = parseInt(width,10) || 1;
         });
     </script>
 </body>
