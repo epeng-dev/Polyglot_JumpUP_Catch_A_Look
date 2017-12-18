@@ -236,6 +236,8 @@ textarea:focus{
 #chating_list p{
 	margin-top: 1vh;
 	margin-bottom: 1vh;
+	animation-name: appead;
+	animation-duration: 0.5s;
 }
 .nickname{
 	font-weight: 700;
@@ -255,6 +257,17 @@ textarea:focus{
 	padding-top: 1vh;
 	padding-bottom: 1vh;
 	padding-left: 0.5vw;
+}
+
+@keyframes appead{
+	from{
+		margin-top: 3vh;
+		margin-bottom: 3vh;
+	}
+	to{
+		margin-top: 1vh;
+		margin-bottom: 1vh;
+	}
 }
 
 html {scrollbar-3dLight-Color: #FF0000; scrollbar-arrow-color: #FFD6D6; scrollbar-base-color: #0000FF; scrollbar-Face-Color: #FFFFFF; scrollbar-Track-Color: rgb(253, 198, 198); scrollbar-DarkShadow-Color: #FF00FF; scrollbar-Highlight-Color: #000000; scrollbar-Shadow-Color: #FFFFFF}

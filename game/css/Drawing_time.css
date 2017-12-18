@@ -99,12 +99,10 @@ hr{
 }
 
 .menu_title{
-    text-align: left;
-    margin-left: 2vw;
-    margin-bottom: 1.5vh;
+    position: absolute;
+    left: 6vw;
     font-family: 'NanumSquare';
     font-weight: 800;
-    color: #012C40;
     font-size: 5vh;
 }
 

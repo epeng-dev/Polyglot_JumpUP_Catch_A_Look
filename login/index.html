@@ -8,20 +8,18 @@
 	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 <body>
-	<form method="post">
 	<div id="login" onclick="ani_log()">
     	<span class="title" id="login_t">SIGN IN</span>
 			<div id="input">
             	<p class="span" id="id_span">ID</p>
-                <input type="text" name="id" id="id" required/>
+                <input type="text" name="id" id="id"/>
                 <p class="span" id="pw_span">PW</p>
-                <input type="password" name="pw" id="pw" onfocus="on_login()" required/>
+                <input type="password" name="pw" id="pw" onfocus="on_login()"/>
             </div>
             <div class="login_btn" style="top:2vh;">
             	<input type="button" value="Sign In" id="submit" onclick="openChild()">
             </div>
-    </div> 
-        </form>
+    </div>
            
         
     
@@ -31,16 +29,16 @@
                 <span class="title change_title_login" id="join_t">CREATE ACCOUNT</span>
                 <div id="join_input" class="hidden">
                         <p class="span" id="id_join_span">ID</p>
-                        <input type="text" name="id" id="id_join" required/>
+                        <input type="text" name="id" id="id_join" />
                         <p class="span" id="pw_join_span">PW</p>
-                        <input type="password" name="pw" id="pw_join" required/>
+                        <input type="password" name="pw" id="pw_join" />
                         <p class="span" id="repeat_pw_span">Repeat PW</p>
-                        <input type="password" name="pw" id="pw_repeat_join" required/>
+                        <input type="password" name="pw" id="pw_repeat_join" />
                         <div id="input_2nd">
                             <p class="span" id="nick_join_span">nickname</p>
-                            <input type="text" name="id" id="nick_join" required/>
+                            <input type="text" name="id" id="nick_join"/>
                             <p class="span" id="email_join_span">email</p>
-                            <input type="text" name="id" id="email_join" required/>
+                            <input type="text" name="id" id="email_join"/>
                             <div class="login_btn">
                                 <button id="Join_in">Join in</button>
                             </div>
@@ -57,6 +55,26 @@
 
         }
     }
+        function setCookie(Nickname, cValue, cDay){
+                        var expire = new Date();
+                        expire.setDate(expire.getDate() + cDay);
+                        cookies = cName + '=' + escape(cValue) + '; path=/ '; // 한글 깨짐을 막기위해 escape(cValue)를 합니다.
+                        if(typeof cDay != 'undefined') cookies += ';expires=' + expire.toGMTString() + ';';
+                        document.cookie = cookies;
+                    }
+        function getCookie(cName) {
+            cName = cName + '=';
+            var cookieData = document.cookie;
+            var start = cookieData.indexOf(cName);
+            var cValue = '';
+            if(start != -1){
+               start += cName.length;
+               var end = cookieData.indexOf(';', start);
+                if(end == -1)end = cookieData.length;
+                cValue = cookieData.substring(start, end);
+            }
+            return unescape(cValue);
+        }   
         function cheak_email(){
             var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
             if($("input").val().match(regExp) == null){
@@ -107,6 +125,39 @@
             // window.open("open할 window", "자식창 이름", "팝업창 옵션");
             openWin = window.open("../waiting_room/index.html", "childForm", "width=1280, height=700, scrollbars=no, resizable=no, toolbars=no, menubar=no");  
         }
+        $(document).ready(function(){
+
+       document.getElementById("submit").onclick = function(){
+
+           var data =
+               {
+                   "data": {
+                       "id": $("#id").val(),
+                       "pw": $("#pw").val()
+                   }
+               }
+
+           var param = "param=" + JSON.stringify(data);
+
+           $.ajax({
+               type:"post",
+               url :'http://localhost:8080/login/',
+               data : param,
+               contentType: "application/x-www-form-urlencoded",
+               success : function(data){
+                   alert("환영합니다.");
+                   setCookie('NickName', '값을 넣어주세염', 1);
+                   alert(getCookie(Nickname));
+                   location.href("../index.html");
+               },
+               error : function(data){
+                   alert("error!");
+                   console.log(data);
+               }
+           })
+
+       }
+   })
     </script>
 
 </body>
