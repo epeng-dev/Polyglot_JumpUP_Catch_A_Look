@@ -1,0 +1,155 @@
+body{
+    margin-top: 15vh;
+    overflow-x:hidden; 
+    overflow-y:hidden;
+    font-family: 'NanumSquare';
+}
+
+#canvas_border{
+    border: 1px solid black;
+    width: auto;
+}
+#choose_color{
+    width: 20vw;
+    background-color: #DAEBF2;
+    border-image: none;
+    border-style: solid; 
+    height: 5vh;
+}
+#info_pen_width, #input_sec{
+    font-size: 3vh;
+}
+#change_pen_width, #change_play_sec{
+    font-size: 3vh;
+}
+
+#Title_Bar{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #1CA5B8;
+    height: 12.5vh;
+    width: 100vw;
+    display: flex;
+    box-shadow: 0.5vh 0.5vh 0.5vh 0.5vh #aaaaaa;
+    padding-left: 3vw;
+    align-items: center;
+    z-index: 9999;
+}
+#sdfs{
+    display: hidden;
+}
+
+hr{
+    width: 20vw;
+}
+
+#Title_text{
+    color: #ffffff;
+    font-size: 5vh;
+    font-family: 'NanumSquare';
+    font-weight: 800;
+}
+
+#Drawing_menu{
+    padding-top: 15vh;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 23.2vw;
+    background-color: #DAEBF2;
+    box-shadow: 0.5vw 0.5vw 0.5vw 0.5vw #aaaaaa;
+    z-index: 8888;
+    text-align: center;
+    
+}
+#clear-canvas{
+    width: 15vw;
+    height: 5vh;
+    border-radius:1vw;
+    -webkit-border-radius:1vw;
+    border-image: none;
+    background-color: #DD0000;
+    font-family: 'NanumSquare';
+    font-size: 3vh;
+    color: white;
+    font-weight: 700;
+}
+
+#btn{
+    width: 20vw;
+    height: 7vh;
+    border-radius:1vw;
+    -webkit-border-radius:1vw;
+    border-image: none;
+    background-color: #1CA5B8;
+    font-family: 'NanumSquare';
+    font-size: 4vh;
+    color: white;
+    font-weight: 700;
+}
+
+#btn_div{
+    position: absolute;
+    bottom: 17.5vh;
+    right: 0;
+    width: 23.2vw;
+    
+}
+
+.menu_title{
+    text-align: left;
+    margin-left: 2vw;
+    margin-bottom: 1.5vh;
+    font-family: 'NanumSquare';
+    font-weight: 800;
+    color: #012C40;
+    font-size: 5vh;
+}
+
+#info_pen_width{
+    margin: 0;
+    margin-bottom: 1vh;
+}
+
+.color{
+    display: inline-block;
+    height: 3vw;
+    width: 3vw;
+    border: 0.5vh solid #555555;
+    margin-bottom: 0.1vh;
+    border-radius:1vw;
+    -webkit-border-radius:1vw;
+    border-style: solid;
+
+    
+}
+.white{
+    background-color: #FFFFFF;
+}
+.black{
+    background-color: #000000;
+}
+.red{
+    background-color: #FF0000;
+}
+.green{
+    background-color: #00ff00;
+}
+.blue{
+    background-color: #0000ff;
+}
+.yellow{
+    background-color: #FFff00;
+}
+.bluish_green{
+    background-color: #00ffff;
+}
+.purple{
+    background-color: #ff00ff;
+}
+
+.pick_color{
+    border: 3px solid #F57600;
+}

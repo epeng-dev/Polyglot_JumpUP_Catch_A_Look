@@ -1,0 +1,265 @@
+body{
+    margin: 0 0 0 0;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+	background-image: url(wm_back.png);
+	color: #512323;
+	font-family: "NanumSquare",Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif"
+}
+#background_color{
+	position: absolute;
+	background-color: #FFFFFF;
+	opacity: 0.5;
+	width: 85vw;
+	height: 80vh;
+	top: 15vh;
+	left: 7.5vw;
+	z-index: 1;
+}
+#waiting_menu{
+	position: absolute;
+	top: 17.5vh;
+	width: 32vw;
+	left: 9.5vw;
+	height: 15vh;
+	background-color: #FFFFFF;
+	border-radius: 2vh;
+	display: flex;
+	align-items: center;
+	padding-left: 2vw;
+	z-index: 2;
+}
+#waiting_menu span{
+	font-size: 7.5vh;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+#make_room{
+	font-size: 6.5vh;
+	position: absolute;
+	left: 44.5vw;
+	top:17.5vh;
+	height: 15vh;
+	cursor: pointer;
+	background-color: #FFFFFF;
+	border-radius: 2vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 17vw;
+	font-weight: 700;
+	z-index: 2;
+}
+#game_room{
+	position: absolute;
+	top:34vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	width: 52vw;
+	height: 55vh;
+	left: 9.5vw;
+	z-index: 3;
+}
+.room_select{
+	height: 15vh;
+	width: 15vw;
+	margin-right: 1vw;
+	margin-top: 3vh;
+	background-color: white;
+	border-radius: 2.5vh;
+	padding-top: 1vh;
+	padding-left: 1vw;
+	cursor: pointer;
+	float: left;
+}
+
+.room_select .room_name{
+	font-size: 3vh;
+	font-weight: 700;
+	margin: 0 0 0 0;
+}
+.room_select .room_master{
+	margin-top: 0.25vh;
+	font-size: 2.5vh;
+}
+.room_select .room_member{
+	position: relative;
+	float: right;
+	right: 0.5vw;
+	bottom: -1.5vh;
+	font-size: 2.25vh;
+	background-color: #E2F982;
+	padding-right: 0.5vw;
+	padding-left: 0.5vw;
+	padding-top: 0.5vh;
+	padding-bottom: 0.5vh;
+	border-radius: 2vh;
+}
+
+.hidden{
+	display: none;
+}
+
+#add_room{
+	position: absolute;
+	top:7.5vh;
+	left: 20vw;
+	z-index: 10;
+}
+
+#darkly{
+	position: absolute;
+	top:0;
+	left: 0;
+	z-index: 9;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0,0,0,0.5);
+}
+
+#add_room_page p{
+	color: #FFD9D9;
+	font-size: 7vh;
+}
+#add_room_page{
+	position: absolute;
+	top:20vh;
+	left: 0;
+	height: 70vh;
+	width: 100%;
+	font-weight: 700;
+	text-align: center;
+}
+#add_room_title{
+	margin-top: 0;
+	margin-bottom: 10vh;
+}
+#input{
+	position: relative;
+	float: left;
+	left: 3.5vw;
+}
+
+#input p{
+	margin: 0 0 0 0;
+	font-size: 4vh;
+	float: left;
+	margin-bottom: 1vh;
+}
+
+#input input{
+	float: left;
+	font-size: 4vh;
+	border-radius: 1vh;
+	width: 43.5vh;
+	font-weight: 500;
+	font-family: 'NanumSquare';
+	color: #512323;
+	border: 0;
+	padding-top: 1vh;
+	padding-bottom: 1vh;
+	padding-left: 0.5vw;
+	margin-bottom: 2.5vh;
+}
+input:focus{
+	outline: none;
+}
+
+.popup_btn{
+	position: relative;
+	cursor: pointer;
+	font-size: 5vh;
+	font-weight: 900;
+	z-index: 10;
+	color: #FFD9D9;
+}
+
+#room_explan--input{
+	font-size: 2.5vh;
+	width: 43.5vh;
+	height: 10vh;
+	font-family: 'NanumSquare';
+	color: #512323;
+	resize: none;
+	border-radius: 2vh;
+	margin-bottom: 3vh;
+}
+
+textarea:focus{
+	outline: none;
+}
+
+#chat{
+	background-color: rgba(255,255,255,0.75);
+	position: absolute;
+	top: 17.5vh;
+	right: 9.5vw;
+	height: 72.5vh;
+	width: 27.5vw;
+	border-radius: 2vh;
+	z-index: 7;
+}
+
+#chat_title{
+	background-color: rgba(255,255,255,0.75);
+	position: relative;
+	top:2vh;
+	width: 26.125vw;
+	height: 5vh;
+	font-size: 4vh;
+	color: #FFAEAE;
+	font-weight: 700;
+	z-index: 8;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	left: 0.6875vw;
+	border-radius: 2.5vh;
+}
+
+#chating_list{
+	position: relative;
+	top:3vh;
+	left: 0.725vw;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	width: 26.125vw;
+	height: 55vh;
+	z-index: 8;
+	font-size: 3vh;
+}
+
+#chating_list p{
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+}
+.nickname{
+	font-weight: 700;
+}
+
+#chat_input{
+	position: relative;
+	top:3vh;
+	left: 0.6875vw;
+	font-size: 4vh;
+	border-radius: 1vh;
+	width: 25.25vw;
+	font-weight: 500;
+	font-family: 'NanumSquare';
+	color: #512323;
+	border: 0.1vh solid #512323;
+	padding-top: 1vh;
+	padding-bottom: 1vh;
+	padding-left: 0.5vw;
+}
+
+html {scrollbar-3dLight-Color: #FF0000; scrollbar-arrow-color: #FFD6D6; scrollbar-base-color: #0000FF; scrollbar-Face-Color: #FFFFFF; scrollbar-Track-Color: rgb(253, 198, 198); scrollbar-DarkShadow-Color: #FF00FF; scrollbar-Highlight-Color: #000000; scrollbar-Shadow-Color: #FFFFFF}
+
+::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {display: block; height: 10px; background-color: rgba(0,0,0,0)}
+
+::-webkit-scrollbar {width: 1vw; height: 3vh; border: 0 solid rgba(255,255,255,0.75); }
+::-webkit-scrollbar-track {border-radius: 8px; background: rgba(255,255,255,0.25); -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.2)}
+::-webkit-scrollbar-thumb {height: 5vh; width: 1vw; background: rgba(255,255,255,0.75); -webkit-border-radius: 8px; border-radius: 8px; -webkit-box-shadow: inset 0 0 4px rgba(255,255,255,0.75)}
