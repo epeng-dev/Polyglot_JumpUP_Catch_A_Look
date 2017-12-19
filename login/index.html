@@ -5,7 +5,8 @@
     <title>login</title>
     <link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
     <link rel="stylesheet" href="login.css">
-	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 </head>
 <body>
 	<div id="login" onclick="ani_log()">
@@ -55,26 +56,7 @@
 
         }
     }
-        function setCookie(Nickname, cValue, cDay){
-                        var expire = new Date();
-                        expire.setDate(expire.getDate() + cDay);
-                        cookies = cName + '=' + escape(cValue) + '; path=/ '; // 한글 깨짐을 막기위해 escape(cValue)를 합니다.
-                        if(typeof cDay != 'undefined') cookies += ';expires=' + expire.toGMTString() + ';';
-                        document.cookie = cookies;
-                    }
-        function getCookie(cName) {
-            cName = cName + '=';
-            var cookieData = document.cookie;
-            var start = cookieData.indexOf(cName);
-            var cValue = '';
-            if(start != -1){
-               start += cName.length;
-               var end = cookieData.indexOf(';', start);
-                if(end == -1)end = cookieData.length;
-                cValue = cookieData.substring(start, end);
-            }
-            return unescape(cValue);
-        }   
+    
         function cheak_email(){
             var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
             if($("input").val().match(regExp) == null){
@@ -120,44 +102,11 @@
     
         function openChild()
         {
-            // window.name = "부모창 이름"; 
-            window.name = "parentForm";
-            // window.open("open할 window", "자식창 이름", "팝업창 옵션");
-            openWin = window.open("../waiting_room/index.html", "childForm", "width=1280, height=700, scrollbars=no, resizable=no, toolbars=no, menubar=no");  
+            var i = '값을 입력해주세요';
+            $.cookie("Nickname", i, {expire: 1, path: '/'});  
+            document.location.href="../index.html"   
         }
-        $(document).ready(function(){
-
-       document.getElementById("submit").onclick = function(){
-
-           var data =
-               {
-                   "data": {
-                       "id": $("#id").val(),
-                       "pw": $("#pw").val()
-                   }
-               }
-
-           var param = "param=" + JSON.stringify(data);
-
-           $.ajax({
-               type:"post",
-               url :'http://localhost:8080/login/',
-               data : param,
-               contentType: "application/x-www-form-urlencoded",
-               success : function(data){
-                   alert("환영합니다.");
-                   setCookie('NickName', '값을 넣어주세염', 1);
-                   alert(getCookie(Nickname));
-                   location.href("../index.html");
-               },
-               error : function(data){
-                   alert("error!");
-                   console.log(data);
-               }
-           })
-
-       }
-   })
+       
     </script>
 
 </body>

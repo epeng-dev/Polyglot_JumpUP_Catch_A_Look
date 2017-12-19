@@ -13,7 +13,7 @@
 	<input type="hidden" id="user_nickname">
 	<div id="darkly" class="hidden" onclick="close_popup()"></div>
 	</div>
-	<div id="background_color"></div>
+	<div id="background_color" onclick="cl('Nickname', , -1)"></div>
 	<!--대기실 배경 div-->
 	<div id="waiting_menu">
 		<span id="waiting_room">대기실</span>
@@ -27,6 +27,14 @@
 			for(var i = 1; i<101; i++){
 				document.write('<div class="room_select"><p class="room_name">뀨규규 '+i+'번째</p><p class="room_master">인정? 어 인정!</p><span class="room_member">3/6 명</span></div>');
 			}
+			function cl(cName, cValue, cDay){
+        var expire = new Date();
+        expire.setDate(expire.getDate() + cDay);
+        cookies = cName + '=' + escape(cValue) + '; path=/ '; // 한글 깨짐을 막기위해 escape(cValue)를 합니다.
+        if(typeof cDay != 'undefined') cookies += ';expires=' + expire.toGMTString() + ';';
+        document.cookie = cookies;
+    }
+			function cl(){}
 		</script>
 	</div>
 	<div id="add_room" class="hidden">
@@ -55,7 +63,7 @@
 	var socket = io.connect('localhost:3000');
 	$("#chat_input").keyup(function(event) {
     if (event.which == 13) {
-		var user = document.getElementById("user_nickname").value;
+		var user = $.cookie('Nickname');;
 		var newText = $('#chat_input').val().replace(/(<([^>]+)>)/ig,"");
         socket.emit('fromClient',{msg:newText, who: user});
             $('#chat_input').val('');
