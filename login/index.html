@@ -18,7 +18,7 @@
                 <input type="password" name="pw" id="pw" onfocus="on_login()"/>
             </div>
             <div class="login_btn" style="top:2vh;">
-            	<input type="button" value="Sign In" id="submit" onclick="openChild()">
+            	<input type="button" value="Sign In" id="submit" onclick="login()">
             </div>
     </div>
            
@@ -98,14 +98,77 @@
             submit.classList.add('submit_on');
         }
 
-        var openWin;
-    
-        function openChild()
+        function login()
         {
-            var i = '값을 입력해주세요';
-            $.cookie("Nickname", i, {expire: 1, path: '/'});  
-            document.location.href="../index.html"   
-        }
+            var data =
+               {
+                   "data": {
+                       "id": $("#id").val(),
+                       "pw": $("#pw").val()
+                   }
+               }
+
+           var param = "param=" + JSON.stringify(data);
+
+           $.ajax({
+               type:"post",
+               url :'http://localhost:8080/login/',
+               data : param,
+               contentType: "application/x-www-form-urlencoded",
+               success : function(data){
+                    var i = '값을 입력해주세요';
+                    $.cookie("Nickname", i, {expire: 1, path: '/'});  
+                    document.location.href="../index.html";
+               },
+               error : function(data){
+                   alert("error!");
+                   console.log(data);
+               }
+           })
+       }
+	   <input type="password" name="pw" id="pw_join" />
+                        <p class="span" id="repeat_pw_span">Repeat PW</p>
+                        <input type="password" name="pw" id="pw_repeat_join" />
+                        <div id="input_2nd">
+                            <p class="span" id="nick_join_span">nickname</p>
+                            <input type="text" name="id" id="nick_join"/>
+                            <p class="span" id="email_join_span">email</p>
+                            <input type="text" name="id" id="email_join"/>
+       function join()
+        {
+		if($("#pw_join").val() == $("#pw_repeat_join").val()){
+		
+            var data =
+               {
+                   "data": {
+                       "id": $("#id_join").val(),
+                       "pw": $("#pw_join").val(),
+					   "nickname" : $("#nick_join").val(),
+					   "email" : $("#email_join").val()
+                   }
+               }
+
+           var param = "param=" + JSON.stringify(data);
+
+           $.ajax({
+               type:"post",
+               url :'http://localhost:8080/join/',
+               data : param,
+               contentType: "application/x-www-form-urlencoded",
+               success : function(data){
+                    $.cookie("Nickname", $("#nick_join").val(), {expire: 1, path: '/'});  
+                    document.location.href="../index.html";
+               },
+               error : function(data){
+                   alert("error!");
+                   console.log(data);
+               }
+           })
+       }
+	   else{
+		alert("비밀번호가 일치하지 않습니다!);
+	   }
+	   }
        
     </script>
 
