@@ -9,7 +9,7 @@ body{
    background-image:url(http://rael.oo.gd/MTcxMTI4AGMwNL.png);
 }
 
-#login{
+#login_box{
     position: absolute;
     z-index: 2;
     top: 20vh;
@@ -22,7 +22,7 @@ body{
     box-shadow: 1vh 0.7vw 10vh 0px black;
 }
 
-#login.change_l{
+#login_box.change_l{
     animation-name: animat_ch;
     animation-duration: 0.5s;
     z-index: 1;
@@ -31,7 +31,7 @@ body{
     height: 45vh;
     left: 37.5vw;
 }
-#join.change_l{
+#join_box.change_l{
         animation-name: animat_ch_j;
         animation-duration: 0.5s;
         z-index: 1;
@@ -41,7 +41,7 @@ body{
         left: 37.5vw;
 }
 
-#join{
+#join_box{
     position: absolute;
     background-color: #ffffff;
     border-radius: 2vh;
@@ -54,7 +54,7 @@ body{
     box-shadow: 1vh 0.7vw 10vh 0px black;
 }
 
-#join.change_j{
+#join_box.change_j{
     animation-name: animat_click;
     animation-duration: 0.5s;
     z-index: 2;
@@ -64,7 +64,7 @@ body{
     left: 30vw;
 }
 
-#login.change_j{
+#login_box.change_j{
     animation-name: animat_click_l;
     animation-duration: 0.5s;
     z-index: 2;

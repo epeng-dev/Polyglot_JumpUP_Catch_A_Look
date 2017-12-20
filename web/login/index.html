@@ -1,176 +1,173 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <title>login</title>
     <link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="css/login.css">
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script>
+        function login() {
+            if ($("#id").val() != "") {
+				if($("#pw").val() != ""){
+                var data = {
+                    "data": {
+                        "id": $("#id_join").val(),
+                        "pw": $("#pw_join").val(),
+                    }
+                }
+
+                var param = "param=" + JSON.stringify(data);
+
+                $.ajax({
+                    type: "post",
+                    url: 'http://localhost:8080/login/',
+                    data: param,
+                    contentType: "application/x-www-form-urlencoded",
+                    success: function (data) {
+                        $.cookie("닉네임 입력부분", i, {
+                            expire: 1
+                        });
+                        alert("안녕하세요 " + $.cookie("asdf") + "님");
+                        document.location.href = "../index.html";
+                    },
+                    error: function (data) {
+                        alert("error!");
+                        console.log(data);
+                    }
+                })
+				}
+            }
+        }
+    </script>
 </head>
+
 <body>
-	<div id="login" onclick="ani_log()">
-    	<span class="title" id="login_t">SIGN IN</span>
-			<div id="input">
-            	<p class="span" id="id_span">ID</p>
-                <input type="text" name="id" id="id"/>
-                <p class="span" id="pw_span">PW</p>
-                <input type="password" name="pw" id="pw" onfocus="on_login()"/>
-            </div>
-            <div class="login_btn" style="top:2vh;">
-            	<input type="button" value="Sign In" id="submit" onclick="login()">
-            </div>
+    <div id="login_box" onclick="ani_log()">
+        <span class="title" id="login_t">SIGN IN</span>
+        <div id="input">
+            <p class="span" id="id_span">ID</p>
+            <input type="text" name="id" id="id" />
+            <p class="span" id="pw_span">PW</p>
+            <input type="password" name="pw" id="pw" onfocus="on_login()" />
+        </div>
+        <div class="login_btn" style="top:2vh;">
+            <input type="button" value="Sign In" id="submit" onclick="login()">
+        </div>
     </div>
-           
-        
-    
-    
-    <div id="join" onclick="ani_join()">
+
+
+
+
+    <div id="join_box" onclick="ani_join()">
         <form method="post">
-                <span class="title change_title_login" id="join_t">CREATE ACCOUNT</span>
-                <div id="join_input" class="hidden">
-                        <p class="span" id="id_join_span">ID</p>
-                        <input type="text" name="id" id="id_join" />
-                        <p class="span" id="pw_join_span">PW</p>
-                        <input type="password" name="pw" id="pw_join" />
-                        <p class="span" id="repeat_pw_span">Repeat PW</p>
-                        <input type="password" name="pw" id="pw_repeat_join" />
-                        <div id="input_2nd">
-                            <p class="span" id="nick_join_span">nickname</p>
-                            <input type="text" name="id" id="nick_join"/>
-                            <p class="span" id="email_join_span">email</p>
-                            <input type="text" name="id" id="email_join"/>
-                            <div class="login_btn">
-                                <button id="Join_in">Join in</button>
-                            </div>
+            <span class="title change_title_login" id="join_t">CREATE ACCOUNT</span>
+            <div id="join_input" class="hidden">
+                <p class="span" id="id_join_span">ID</p>
+                <input type="text" name="id" id="id_join" />
+                <p class="span" id="pw_join_span">PW</p>
+                <input type="password" name="pw" id="pw_join" />
+                <p class="span" id="repeat_pw_span">Repeat PW</p>
+                <input type="password" name="pw" id="pw_repeat_join" />
+                <div id="input_2nd">
+                    <p class="span" id="nick_join_span">nickname</p>
+                    <input type="text" name="id" id="nick_join" />
+                    <p class="span" id="email_join_span">email</p>
+                    <input type="text" name="id" id="email_join" />
+                    <div class="login_btn">
+                        <button id="Join_in">Join in</button>
                     </div>
-                    
                 </div>
+
+            </div>
         </form>
-        
+
 
     </div>
     <script>
-    function cheak_input(){
-            if($("id_join").val() == null || $("pw_join").val() == null || $("pw_repeat_join").val() == null || $("nick_join").val() == null || $("email_join").val() == null){
+        function join() {
+            if ($("#pw_join").val() == $("#pw_repeat_join").val()) {
 
+                var data = {
+                    "data": {
+                        "id": $("#id_join").val(),
+                        "pw": $("#pw_join").val(),
+                        "nickname": $("#nick_join").val(),
+                        "email": $("#email_join").val()
+                    }
+                }
+
+                var param = "param=" + JSON.stringify(data);
+
+                $.ajax({
+                    type: "post",
+                    url: "http://localhost:8080/join/",
+                    data: param,
+                    contentType: "application/x-www-form-urlencoded",
+                    success: function (data) {
+                        $.cookie("Nickname", $("#nick_join").val(), {
+                            expire: 1,
+                            path: '/'
+                        });
+                        document.location.href = "../index.html";
+                    },
+                    error: function (data) {
+                        alert("error!");
+                        console.log(data);
+                    }
+                })
+            } else {
+                alert("비밀번호가 일치하지 않습니다!");
+            }
         }
-    }
-    
-        function cheak_email(){
+        var join_b = document.getElementById('join_box');
+        var login_b = document.getElementById('login_box');
+        var join_t = document.getElementById('join_t');
+        var login_t = document.getElementById('login_t');
+        var submit = document.getElementById('submit');
+        var join_input = document.getElementById('join_input');
+
+        function cheak_input() {
+            if ($("id_join").val() == null || $("pw_join").val() == null || $("pw_repeat_join").val() == null || $(
+                    "nick_join").val() == null || $("email_join").val() == null) {}
+        }
+
+        function cheak_email() {
             var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-            if($("input").val().match(regExp) == null){
+            if ($("input").val().match(regExp) == null) {
                 alert("입력되지 않은 부분이 있습니다. 다시 입력해주시기 바랍니다.");
             }
         }
-        function variable(){
-            var join = document.getElementById('join');
-            var login = document.getElementById('login');
-            var join_t = document.getElementById('join_t');
-            var login_t = document.getElementById('login_t');
-            var submit = document.getElementById('submit');
-            var join_input = document.getElementById('join_input');
+
+        function ani_join() {
+            join_b.classList.remove('change_l');
+            login_b.classList.remove('change_j');
+            join_b.classList.add('change_j');
+            login_b.classList.add('change_l');
+            login_t.classList.add('change_title_join');
+            join_t.classList.remove('change_title_login');
+            join_input.classList.remove('hidden');
         }
-        function ani_join(){
-            variable();
-                join.classList.remove('change_l');
-                login.classList.remove('change_j');
-                join.classList.add('change_j');
-                login.classList.add('change_l');
-                login_t.classList.add('change_title_join');
-                join_t.classList.remove('change_title_login');
-                join_input.classList.remove('hidden');
+
+        function ani_log() {
+            login_b.classList.remove('change_l');
+            join_b.classList.remove('change_j');
+            login_b.classList.add('change_j');
+            join_b.classList.add('change_l');
+            join_t.classList.add('change_title_login');
+            login_t.classList.remove('change_title_join');
+            join_input.classList.add('hidden');
+
+
         }
-        function ani_log(){
-            variable();
-                login.classList.remove('change_l');
-                join.classList.remove('change_j');
-                login.classList.add('change_j');
-                join.classList.add('change_l');
-                join_t.classList.add('change_title_login');
-                login_t.classList.remove('change_title_join');
-                join_input.classList.add('hidden');
-                
-                
-        }
-        function on_login(){
-            variable();
+
+        function on_login() {
             submit.classList.add('submit_on');
         }
-
-        function login()
-        {
-            var data =
-               {
-                   "data": {
-                       "id": $("#id").val(),
-                       "pw": $("#pw").val()
-                   }
-               }
-
-           var param = "param=" + JSON.stringify(data);
-
-           $.ajax({
-               type:"post",
-               url :'http://localhost:8080/login/',
-               data : param,
-               contentType: "application/x-www-form-urlencoded",
-               success : function(data){
-                    var i = '값을 입력해주세요';
-                    $.cookie("Nickname", i, {expire: 1, path: '/'});  
-                    document.location.href="../index.html";
-               },
-               error : function(data){
-                   alert("error!");
-                   console.log(data);
-               }
-           })
-       }
-	   <input type="password" name="pw" id="pw_join" />
-                        <p class="span" id="repeat_pw_span">Repeat PW</p>
-                        <input type="password" name="pw" id="pw_repeat_join" />
-                        <div id="input_2nd">
-                            <p class="span" id="nick_join_span">nickname</p>
-                            <input type="text" name="id" id="nick_join"/>
-                            <p class="span" id="email_join_span">email</p>
-                            <input type="text" name="id" id="email_join"/>
-       function join()
-        {
-		if($("#pw_join").val() == $("#pw_repeat_join").val()){
-		
-            var data =
-               {
-                   "data": {
-                       "id": $("#id_join").val(),
-                       "pw": $("#pw_join").val(),
-					   "nickname" : $("#nick_join").val(),
-					   "email" : $("#email_join").val()
-                   }
-               }
-
-           var param = "param=" + JSON.stringify(data);
-
-           $.ajax({
-               type:"post",
-               url :'http://localhost:8080/join/',
-               data : param,
-               contentType: "application/x-www-form-urlencoded",
-               success : function(data){
-                    $.cookie("Nickname", $("#nick_join").val(), {expire: 1, path: '/'});  
-                    document.location.href="../index.html";
-               },
-               error : function(data){
-                   alert("error!");
-                   console.log(data);
-               }
-           })
-       }
-	   else{
-		alert("비밀번호가 일치하지 않습니다!);
-	   }
-	   }
-       
     </script>
 
 </body>
+
 </html>
