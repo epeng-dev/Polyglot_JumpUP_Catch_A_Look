@@ -1,39 +1,51 @@
 <%# owner.ejs %>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>게임 대기실</title>
-    <link rel="stylesheet" href="../font.css">
-    <link rel="stylesheet" href="css/drawing.css">
-    <link rel="stylesheet" href="css/users_game_room.css">
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script> 
-    <script src="/socket.io/socket.io.js"></script>  
-</head>
-<body>
-    <input type="hidden" id="hiddenTitle" value="<%= title %>">
-    <input type="hidden" id="hiddenOwner" value="<%= owner %>">
-    <input type="hidden" id="hiddenRoomId" value="<%= roomId %>">
+    <!DOCTYPE html>
+    <html lang="ko">
 
-    <div id="background">
-    </div>
-    <div id="waiting_menu">
-        <span id="waiting_room"><%= title %></span> <button id="gameStart">게임 시작</button>
-    </div>
+    <head>
+        <meta charset="UTF-8">
+        <title>게임 대기실</title>
+        <link rel="stylesheet" href="../font.css">
+        <link rel="stylesheet" href="css/drawing.css">
+        <link rel="stylesheet" href="css/owner_game_room.css">
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+    </head>
 
-    
-	<div id="chat">
+    <body>
+        <input type="hidden" id="hiddenTitle" value="<%= title %>">
+        <input type="hidden" id="hiddenOwner" value="<%= owner %>">
+        <input type="hidden" id="hiddenRoomId" value="<%= roomId %>">
+
+        <div id="background">
+        </div>
+        <div id="waiting_menu">
+            <span id="waiting_room">
+                <%= title %>
+            </span>
+        </div>
+
+
+        <div id="chat">
             <div id="chat_title">
                 <span>채팅창</span>
             </div>
             <div id="chating_list">
-                
+
             </div>
             <input type="text" id="chat_input">
         </div>
         <div id="member">
-            <div class="room_select"><p class="room_name" id="<%= owner %>"><%= owner %></p><span class="room_member">Lv. 1</span></div>
+            <div class="room_select">
+                <p class="room_name" id="<%= owner %>">
+                    <%= owner %>
+                </p>
+                <span class="room_member">Lv. 1</span>
+            </div>
+        </div>
+        <div style="position:absolute; bottom:7.5vh; left:28vw; height:12.5vh; z-index:50;">
+            <img src="start.png" style="cursor:pointer; height:100%;" alt="스타트 버튼" onclick="start()">
         </div>
         <script>
             var socket = io.connect('localhost:3000/');
@@ -44,38 +56,52 @@
 
             console.log("roomID", roomId);
 
-            if(title != undefined) {
-                socket.emit('ownerConn', {roomId: roomId, title: title});
+            if (title != undefined) {
+                socket.emit('ownerConn', {
+                    roomId: roomId,
+                    title: title
+                });
             }
 
-            socket.emit('addOwner', {"roomId": roomId});
-
-            $("#chat_input").keyup(function(event) {
-    		    if (event.which == 13) {
-                    var user = $.cookie['Nickname'];
-        		    socket.emit('standFromClient',{msg:$('#chat_input').val(), who: user, roomId: roomId});
-            	    $('#chat_input').val('');
-    		    }
-            });
-            
-            socket.on("standToClient", function(data) {
-                if(data.msg.length >0) {
-            		$('#chating_list').append('<p><span class="nickname">'+data.who+'</span> | '+data.msg+'</p>');
-        		}
+            socket.emit('addOwner', {
+                "roomId": roomId
             });
 
-            socket.on('newMember', function(data) {
-			    $('#member').append('<div class="room_select" id="'+data.socketId+'"><p class="room_name">'+data.socketId+'</p><span class="room_member">Lv. 1</span></div>');
+            $("#chat_input").keyup(function (event) {
+                if (event.which == 13) {
+                    var user = getCookie("io");
+                    socket.emit('standFromClient', {
+                        msg: $('#chat_input').val(),
+                        who: user,
+                        roomId: roomId
+                    });
+                    $('#chat_input').val('');
+                }
             });
-            
-            socket.on('userDis', function(data) {
-                var id = "#"+data.socketId;
+
+            socket.on("standToClient", function (data) {
+                if (data.msg.length > 0) {
+                    $('#chating_list').append('<p><span class="nickname">' + data.who + '</span> | ' + data.msg +
+                        '</p>');
+                }
+            });
+
+            socket.on('newMember', function (data) {
+                $('#member').append('<div class="room_select" id="' + data.socketId + '"><p class="room_name">' +
+                    data.socketId + '</p><span class="room_member">Lv. 1</span></div>');
+            });
+
+            socket.on('userDis', function (data) {
+                var id = "#" + data.socketId;
                 $(id).remove();
             });
 
-            $('#gameStart').click(function() {
-                socket.emit('gameStart', {"roomId": roomId});
+            $('#gameStart').click(function () {
+                socket.emit('gameStart', {
+                    "roomId": roomId
+                });
             });
-       </script>
-</body>
-</html>
+        </script>
+    </body>
+
+    </html>

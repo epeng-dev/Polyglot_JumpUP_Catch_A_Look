@@ -1,0 +1,346 @@
+body {
+    font-family: 'NanumSquare';
+    margin: 0;
+    color: #512323;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-image: url(http://rael.oo.gd/MTcxMTI4AGMwNL.png);
+}
+
+#login_box {
+    position: absolute;
+    z-index: 2;
+    top: 20vh;
+    left: 32.5vw;
+    padding-top: 2vh;
+    background-color: #ffffff;
+    border-radius: 2vh;
+    width: 35vw;
+    height: 50vh;
+    box-shadow: 1vh 0.7vw 10vh 0px black;
+}
+
+#login_box.change_l {
+    animation-name: animat_ch;
+    animation-duration: 0.5s;
+    z-index: 1;
+    top: 40vh;
+    width: 25vw;
+    height: 45vh;
+    left: 37.5vw;
+}
+
+#join_box.change_l {
+    animation-name: animat_ch_j;
+    animation-duration: 0.5s;
+    z-index: 1;
+    top: 30vh;
+    width: 25vw;
+    height: 45vh;
+    left: 37.5vw;
+}
+
+#join_box {
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 2vh;
+    z-index: 1;
+    padding-top: 5vh;
+    width: 25vw;
+    height: 45vh;
+    top: 30vh;
+    left: 37.5vw;
+    box-shadow: 1vh 0.7vw 10vh 0px black;
+}
+
+#join_box.change_j {
+    animation-name: animat_click;
+    animation-duration: 0.5s;
+    z-index: 2;
+    top: 20vh;
+    width: 40vw;
+    height: 55vh;
+    left: 30vw;
+}
+
+#login_box.change_j {
+    animation-name: animat_click_l;
+    animation-duration: 0.5s;
+    z-index: 2;
+    top: 20vh;
+    width: 35vw;
+    height: 50vh;
+    left: 32.5vw;
+}
+
+#input_2nd {
+    position: absolute;
+    top: 15.5vh;
+    left: 21.5vw;
+}
+
+#join_input {
+    width: 20vw;
+    margin-left: 3vw;
+}
+
+#join_input.hidden {
+    display: none;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    font-size: 6vh;
+    font-weight: 700;
+    margin-bottom: 5vh;
+}
+
+#login_t.change_t {
+    color: #ADADAD;
+    font-size: 4vh;
+    cursor: pointer;
+}
+
+.change_title_login {
+    position: relative;
+    top: 40vh;
+    font-size: 4vh;
+    color: #ADADAD;
+    animation-name: change_t;
+    animation-duration: 0.3s;
+    cursor: pointer;
+}
+
+.change_title_join {
+    position: relative;
+    top: 40vh;
+    font-size: 4vh;
+    color: #ADADAD;
+    animation-name: change_t;
+    animation-duration: 0.3s;
+    cursor: pointer;
+}
+
+@keyframes change_t {
+    from {
+        top: 0;
+    }
+    to {
+        top: 38.5vh;
+    }
+}
+
+@keyframes animat_ch_j {
+    from {
+        top: 20vh;
+        width: 35vw;
+        height: 50vh;
+        left: 32.5vw;
+    }
+    to {
+        top: 30vh;
+        width: 25vw;
+        height: 45vh;
+        left: 37.5vw;
+    }
+}
+
+@-webkit-keyframes animat_ch_j {
+    from {
+        top: 20vh;
+        width: 35vw;
+        height: 50vh;
+        left: 32.5vw;
+    }
+    to {
+        top: 30vh;
+        width: 25vw;
+        height: 45vh;
+        left: 37.5vw;
+    }
+}
+
+@keyframes animat_ch {
+    from {
+        top: 20vh;
+        width: 35vw;
+        height: 50vh;
+        left: 32.5vw;
+    }
+    to {
+        top: 40vh;
+        width: 25vw;
+        height: 45vh;
+        left: 37.5vw;
+    }
+}
+
+@-webkit-keyframes animat_ch {
+    from {
+        top: 20vh;
+        width: 35vw;
+        height: 50vh;
+        left: 32.5vw;
+    }
+    to {
+        top: 40vh;
+        width: 25vw;
+        height: 45vh;
+        left: 37.5vw;
+    }
+}
+
+@keyframes animat_click {
+    from {
+        width: 25vw;
+        height: 45vh;
+        left: 37.5vw;
+    }
+    to {
+        width: 40vw;
+        height: 55vh;
+        left: 30vw;
+    }
+}
+
+@-webkit-keyframes animat_click {
+    from {
+        width: 25vw;
+        height: 45vh;
+        left: 37.5vw;
+    }
+    to {
+        width: 40vw;
+        height: 55vh;
+        left: 30vw;
+    }
+}
+
+@keyframes animat_click_l {
+    from {
+        top: 40vh;
+        width: 25vw;
+        height: 45vh;
+        left: 37.5vw;
+    }
+    to {
+        top: 20vh;
+        width: 35vw;
+        height: 50vh;
+        left: 32.5vw;
+    }
+}
+
+@-webkit-keyframes animat_click_l {
+    from {
+        top: 40vh;
+        width: 25vw;
+        height: 45vh;
+        left: 37.5vw;
+    }
+    to {
+        top: 20vh;
+        width: 35vw;
+        height: 50vh;
+        left: 32.5vw;
+    }
+}
+
+input {
+    width: 20vw;
+    font-size: 4.5vh;
+    font-weight: 500;
+    margin-bottom: 1vh;
+    color: #252525;
+    border-color: #EEEEEE;
+    border-width: 0.1vh;
+    border-radius: 1vh;
+}
+
+input:focus {
+    outline: none;
+}
+
+.span {
+    height: 3vh;
+    font-size: 3vh;
+    font-weight: 600;
+    margin-bottom: 1vh;
+    margin-top: 1.5vh;
+    position: relative;
+    color: #505050;
+}
+
+#join_input input {
+    width: 15vw;
+    font-size: 3vh;
+}
+
+#id_span {
+    right: 9.5vw;
+}
+
+#pw_span {
+    right: 9.1vw;
+}
+
+#input,
+.login_btn {
+    text-align: center;
+}
+
+#submit:focus {
+    outline: none;
+}
+
+.login_btn {
+    position: relative;
+    top: 5.1vh;
+}
+
+#Join_in {
+    width: 15vw;
+    height: 5vh;
+    border-width: 0.1vh;
+    border-radius: 1vh;
+    border-image: none;
+    background-color: #512323;
+    font-family: 'NanumSquare';
+    font-size: 4vh;
+    color: white;
+    font-weight: 700;
+}
+
+#submit {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0);
+    border-width: 0 0 0 0;
+    color: #4AACC5;
+    font-size: 3vh;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 0;
+    margin-top: 1vh;
+}
+
+#submit.submit_on {
+    animation-name: submit_opacity;
+    animation-duration: 0.5s;
+    opacity: 1;
+    margin-top: 0;
+}
+
+@keyframes submit_opacity {
+    from {
+        opacity: 0;
+        margin-top: 7vh;
+    }
+    to {
+        opacity: 1;
+        margin-top: 0;
+    }
+}

@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<title>대기실</title>
 	<script src="waiting_room.js"></script>
-    <link rel="stylesheet" href="waiting.css">
+	<link rel="stylesheet" href="waiting.css">
 	<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 	<script src="/socket.io/socket.io.js"></script>
-	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script> 
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 </head>
+
 <body>
+	<input type="hidden" id="nick">
 	<div id="darkly" class="hidden" onclick="close_popup()"></div>
 	</div>
 	<div id="background_color"></div>
@@ -21,7 +24,7 @@
 	<div id="make_room" onclick="want_room()">
 		<span>방 만들기</span>
 	</div>
-	
+
 	<div id="game_room">
 	</div>
 	<div id="add_room" class="hidden">
@@ -29,11 +32,14 @@
 		<div id="add_room_page">
 			<p id="add_room_title">방 생성</p>
 			<div id="input">
-				<p  class="add_room_title--input">방 제목</p><br>
-				<input type="text" id="room_name--input" maxlength="15"><br>
-				<span class="popup_btn" onclick="close_popup()">Close</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="popup_btn" id="makeRoom">OK</span>
+				<p class="add_room_title--input">방 제목</p>
+				<br>
+				<input type="text" id="room_name--input" maxlength="15">
+				<br>
+				<span class="popup_btn" onclick="close_popup()">Close</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="popup_btn" id="makeRoom">OK</span>
 			</div>
-			
+
 		</div>
 	</div>
 
@@ -42,70 +48,90 @@
 			<span>채팅창</span>
 		</div>
 		<div id="chating_list">
-			
+
 		</div>
 		<input type="text" id="chat_input">
 	</div>
 	<script>
+		function getCookie(cName) {
+			cName = cName + '=';
+			var cookieData = document.cookie;
+			var start = cookieData.indexOf(cName);
+			var cValue = '';
+			if (start != -1) {
+				start += cName.length;
+				var end = cookieData.indexOf(';', start);
+				if (end == -1) end = cookieData.length;
+				cValue = cookieData.substring(start, end);
+			}
+			return decodeURI(cValue);
+		}
 		var socket = io.connect('localhost:3000');
-		var user = $.cookie['Nickname'];
+
 
 		//socket.emit('waitConn');
 
-		$("#chat_input").keyup(function(event) {
-    		if (event.which == 13) {
-				var user = 'hi';
-        		socket.emit('waitFromClient',{msg:$('#chat_input').val(), who: user});
-            	$('#chat_input').val('');
-    		}
-		});
-
-		socket.on('waitToClient',function(data){
-    		var divdiv = document.getElementById("chating_list");
-
-    		console.log(data.msg);
-    		if(data.session == 0) {
-        		window.location.href = 'localhost:3000/';
-    		} else{
-        		if(data.msg.length >0) {
-            		$('#chating_list').append('<p><span class="nickname">'+data.who+'</span> | '+data.msg+'</p>');
-        		}
-    		}
-
-    		divdiv.scrollTop = divdiv.scrollHeight; //자동 스크롤
-		});
-
-		socket.on('firstConn', function(data) {
-			var data_com = data.list;
-			var user_com = data.userList;
-			console.log("1 | ",data_com);
-			var data_com_length = Object.keys(data_com).length;
-			console.log("2 | ",data_com_length);
-
-			for (var j = 1; j<=data_com_length; j++) {
-				var title = data_com[j].title;
-				var owner = data_com[j].owner;
-				var roomId = data_com[j].roomId;
-				var userLen = user_com[data_com[j].roomId].playerLen+1;
-				console.log("3 |", roomId);
-				//roomOwner = roomList[i].owner;
-				$('#game_room').append("<div class='room_select' id='"+roomId+"'><p class='room_name'>"+title+"</p><p class='room_master'>"+owner+"님의 게임</p><span class='room_member'>"+ userLen +"/6 명</span></div>");
+		$("#chat_input").keyup(function (event) {
+			if (event.which == 13 && getCookie("asdf") != "") {
+				var user = getCookie("asdf");
+				socket.emit('waitFromClient', {
+					msg: $('#chat_input').val(),
+					who: user
+				});
+				$('#chat_input').val('');
+			} else if (event.which == 13) {
+				alert("쿠키가 존재하지 않습니다!\n게임을 강제 종료합니다! 로그인 후 재접속 해주세요!");
 			}
 		});
 
-		socket.on('madeRoom', function(data) {
+		socket.on('waitToClient', function (data) {
+			var divdiv = document.getElementById("chating_list");
+
+			console.log(data.msg);
+			if (data.session == 0) {
+				window.location.href = 'localhost:3000/';
+			} else {
+				if (data.msg.length > 0) {
+					$('#chating_list').append('<p><span class="nickname">' + data.who + '</span> | ' + data.msg + '</p>');
+				}
+			}
+
+			divdiv.scrollTop = divdiv.scrollHeight; //자동 스크롤
+		});
+
+		socket.on('firstConn', function (data) {
+			var data_com = data.list;
+			var user_com = data.userList;
+			console.log("1 | ", data_com);
+			var data_com_length = Object.keys(data_com).length;
+			console.log("2 | ", data_com_length);
+
+			for (var j = 1; j <= data_com_length; j++) {
+				var title = data_com[j].title;
+				var owner = data_com[j].owner;
+				var roomId = data_com[j].roomId;
+				var userLen = user_com[data_com[j].roomId].playerLen + 1;
+				console.log("3 |", roomId);
+				//roomOwner = roomList[i].owner;
+				$('#game_room').append("<div class='room_select' id='" + roomId + "'><p class='room_name'>" + title +
+					"</p><p class='room_master'>" + owner + "님의 게임</p><span class='room_member'>" + userLen + "/6 명</span></div>");
+			}
+		});
+
+		socket.on('madeRoom', function (data) {
 			var roomId = data.newRoom.roomId;
 			var title = data.newRoom.title;
 			var owner = data.newRoom.owner;
 
-			if(title != undefined) {
-				console.log("room socket |", roomId	);
+			if (title != undefined) {
+				console.log("room socket |", roomId);
 
-				$('#game_room').append("<div class='room_select' id='"+roomId+"'><p class='room_name'>"+title+"</p><p class='room_master'>"+owner+"님의 게임</p><span class='room_member'>1/6 명</span></div>");
+				$('#game_room').append("<div class='room_select' id='" + roomId + "'><p class='room_name'>" + title +
+					"</p><p class='room_master'>" + owner + "님의 게임</p><span class='room_member'>1/6 명</span></div>");
 			}
 		});
 
-		$('#makeRoom').click(function() {
+		$('#makeRoom').click(function () {
 			var user = 'hi';
 			var link = "http://localhost:3000/owner"
 
@@ -124,21 +150,24 @@
 				}
 			});*/
 
-			socket.emit('makeRoom', {owner:owner, title:title})
+			socket.emit('makeRoom', {
+				owner: owner,
+				title: title
+			})
 		});
 
-		socket.on('gotoOwner', function(data) {
+		socket.on('gotoOwner', function (data) {
 			var link = "http://localhost:3000/owner";
-			
-			document.location.href=link+"?title="+data.title+"&owner="+data.owner+"&roomId="+data.roomId;
+
+			document.location.href = link + "?title=" + data.title + "&owner=" + data.owner + "&roomId=" + data.roomId;
 		});
 
-		$(document).on("click",".room_select",function() {
+		$(document).on("click", ".room_select", function () {
 			console.log('aaaa');
 			var link = "http://localhost:3000/client"
 			var id = $(this).attr('id');
 
-			console.log("링크 | "+link);
+			console.log("링크 | " + link);
 
 			/*$.ajax({
 				type: "GET", 
@@ -150,36 +179,38 @@
 					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
 			});*/
-			socket.emit('joinRoom', {"roomId": id});
+			socket.emit('joinRoom', {
+				"roomId": id
+			});
 		});
 
-		socket.on('gotoClient', function(data) {
+		socket.on('gotoClient', function (data) {
 			var link = "http://localhost:3000/client"
 
-			document.location.href=link+"?roomId="+data.roomId;
+			document.location.href = link + "?roomId=" + data.roomId;
 		});
 
-		socket.on('addPlayer', function(data) {
+		socket.on('addPlayer', function (data) {
 			classLength = $('.room_member').length;
-			for(var i=1; i<=classLength; i++) {
-				socketId = "#"+i+" .room_member";
+			for (var i = 1; i <= classLength; i++) {
+				socketId = "#" + i + " .room_member";
 				console.log("addPlayer", socketId);
-				$(socketId).text(data.length+"/6명");
+				$(socketId).text(data.length + "/6명");
 			}
 		});
 
-		socket.on('userDis', function(data) {
+		socket.on('userDis', function (data) {
 			console.log("userDis", data.length);
 			classLength = $('.room_member').length;
-			for(var i=1; i<=classLength; i++) {
-				socketId = "#"+i+" .room_member";
+			for (var i = 1; i <= classLength; i++) {
+				socketId = "#" + i + " .room_member";
 				console.log("addPlayer", socketId);
-				$(socketId).text(data.length+"/6명");
+				$(socketId).text(data.length + "/6명");
 			}
 		});
 
-		socket.on('finishRoom', function(data) {
-			var id = "#"+data.roomId;
+		socket.on('finishRoom', function (data) {
+			var id = "#" + data.roomId;
 
 			console.log("id: ", id);
 
@@ -187,4 +218,5 @@
 		});
 	</script>
 </body>
+
 </html>

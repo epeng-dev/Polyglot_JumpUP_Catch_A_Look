@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
 var web = require('./router/web.js');
+var uid = require('uid-safe');
  
 var app = express();
 
