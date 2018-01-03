@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sweet IDE</title>
+    <meta charset="utf8"></meta>
+    <script type="text/javascript" src="js/login_src.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    
+</head>
+<body>
+
+<div id="login">
+        <form name="login">
+            
+        <input type="text"  name="id" id="id"/>
+        <input type="password"  name="pw" id="pw"/>
+            
+        </form>
+
+        <button id="btn">login</button>
+    </div>
+
+    <div id="login_background"></div>
+    <div id="login_logo_background"></div>
+    
+</body>
+
+
+<script>
+    $(document).ready(function(){
+
+    document.getElementById("btn").onclick = function(){
+
+        var data =
+        {
+            "data": {
+                "id": $("#id").val(),
+                "pw": $("#pw").val()
+            }
+        }
+
+        var param = "param=" + JSON.stringify(data);
+        
+    $.ajax({
+                type:"post",
+                url :'http://localhost:8080/local/verifyCode',
+                data : param,
+                contentType: "application/x-www-form-urlencoded",
+                success : function(data){
+                    alert(data);
+                },
+                error : function(data){
+                    alert("error!");
+                    console.log(data);
+                }
+            })
+
+    }
+    }) 
+
+</script>
+</html>

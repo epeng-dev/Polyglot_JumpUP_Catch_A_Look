@@ -1,0 +1,13 @@
+{
+  "name": "express-tutorial",
+  "version": "1.0.0",
+  "dependencies":
+  {
+    "express": "~4.15.4",
+    "express-session": "~1.15.5",
+    "ejs": "~2.5.7",
+    "body-parser": "~1.18.2",
+    "mysql": "2.14.1",
+    "socket.io": "^2.0.3"
+  }
+}

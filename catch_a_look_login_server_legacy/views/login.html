@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+    <link rel="stylesheet" href="CSS/login.css">
+</head>
+<body>
+    <form action="/login" method="post">
+        <div id="login" onclick="ani_log()">
+            <span class="title" id="login_t">SIGN IN</span>
+            <div id="input">
+                <p class="span" id="id_span">ID</p>
+                <input type="text" name="id" id="id" required/>
+                <p class="span" id="pw_span">PW</p>
+                <input type="password" name="pw" id="pw" onfocus="on_login()" required/>
+            </div>
+            <div id="login_btn">
+                <input type="submit" value="Sign In" id="submit">
+            </div>
+        </div>    
+    </form>
+    
+    <form action="/signup" method="post">
+        <div id="join" onclick="ani_join()">
+            <span class="title change_title" id="join_t">CREATE ACCOUNT</span>
+            <div id="join_input" class="hidden">
+                <p class="span" id="id_join_span">ID</p>
+                <input type="text" name="id_join" id="id_join" required/>
+                <p class="span" id="pw_join_span">PW</p>
+                <input type="password" name="pw_join" id="pw_join" required/>
+                <p class="span" id="repeat_pw_span">Repeat PW</p>
+                <input type="password" name="pw_repeat_join" id="pw_repeat_join" required/>
+                <div id="input_2nd">
+                    <p class="span" id="nick_join_span">nickname</p>
+                    <input type="text" name="nick_join" id="nick_join" required/>
+                    <p class="span" id="email_join_span">email</p>
+                    <input type="text" name="email_join" id="email_join" required/>
+                    <div id="login_btn">
+                        <button id="Join_in">Join in</button>
+                    </div>
+                </div>        
+            </div>
+        </div>
+    </form>
+    
+    <a style="position:absolute; bottom:0; left:0;background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, San Francisco, Helvetica Neue, Helvetica, Ubuntu, Roboto, Noto, Segoe UI, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px;" href="https://unsplash.com/@joeshillington?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Joe Shillington"><span style="display:inline-block;padding:2px 3px;"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-1px;fill:white;" viewBox="0 0 32 32"><title></title><path d="M20.8 18.1c0 2.7-2.2 4.8-4.8 4.8s-4.8-2.1-4.8-4.8c0-2.7 2.2-4.8 4.8-4.8 2.7.1 4.8 2.2 4.8 4.8zm11.2-7.4v14.9c0 2.3-1.9 4.3-4.3 4.3h-23.4c-2.4 0-4.3-1.9-4.3-4.3v-15c0-2.3 1.9-4.3 4.3-4.3h3.7l.8-2.3c.4-1.1 1.7-2 2.9-2h8.6c1.2 0 2.5.9 2.9 2l.8 2.4h3.7c2.4 0 4.3 1.9 4.3 4.3zm-8.6 7.5c0-4.1-3.3-7.5-7.5-7.5-4.1 0-7.5 3.4-7.5 7.5s3.3 7.5 7.5 7.5c4.2-.1 7.5-3.4 7.5-7.5z"></path></svg></span><span style="display:inline-block;padding:2px 3px;">Joe Shillington</span></a>    <script>
+        function cheak_input(){
+            if($("id_join").val() == null || $("pw_join").val() == null || $("pw_repeat_join").val() == null || $("nick_join").val() == null || $("email_join").val() == null){
+
+        }
+    }
+        function cheak_email(){
+            var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+            if($("input").val().match(regExp) == null){
+                alert("입력되지 않은 부분이 있습니다. 다시 입력해주시기 바랍니다.");
+            }
+        }
+        function variable(){
+            var join = document.getElementById('join');
+            var login = document.getElementById('login');
+            var join_t = document.getElementById('join_t');
+            var login_t = document.getElementById('login_t');
+            var submit = document.getElementById('submit');
+            var join_input = document.getElementById('join_input');
+        }
+        function ani_join(){
+            variable();
+                join.classList.remove('change_l');
+                login.classList.remove('change_j');
+                join.classList.add('change_j');
+                login.classList.add('change_l');
+                login_t.classList.add('change_t');
+                join_t.classList.remove('change_title');
+                join_input.classList.remove('hidden');
+        }
+        function ani_log(){
+            variable();
+                login.classList.remove('change_l');
+                join.classList.remove('change_j');
+                login.classList.add('change_j');
+                join.classList.add('change_l');
+                join_t.classList.add('change_title');
+                login_t.classList.remove('change_t');
+                join_input.classList.add('hidden');
+                
+                
+        }
+        function on_login(){
+            variable();
+            submit.classList.add('submit_on');
+        }
+            
+    </script>
+
+</body>
+</html>
