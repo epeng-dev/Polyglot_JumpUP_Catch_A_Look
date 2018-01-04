@@ -1,112 +1,121 @@
 <%# clinet.ejs %>
-	<!DOCTYPE html>
-	<html lang="ko">
+    <!DOCTYPE html>
+    <html lang="ko">
 
-	<head>
-		<meta charset="UTF-8">
-		<title>게임 대기실</title>
-		<link rel="stylesheet" href="../font.css">
-		<link rel="stylesheet" href="css/drawing.css">
-		<link rel="stylesheet" href="css/users_game_room.css">
-		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-		<script src="/socket.io/socket.io.js"></script>
-	</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>게임 대기실</title>
+        <link rel="stylesheet" href="../font.css">
+        <link rel="stylesheet" href="css/drawing.css">
+        <link rel="stylesheet" href="css/users_game_room.css">
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+    </head>
 
-	<body>
-		<input type="hidden" id="hiddenRoomId" value="<%= roomId %>">
-		<input type="hidden" id="hiddenUserList" value="<%= userList %>">
-		<input type="hidden" id="hiddenPlayer" value="<%= userList.player %>">
-		<div id="background">
-		</div>
-		<div id="waiting_menu">
-			<span id="waiting_room">
+    <body>
+        <input type="hidden" id="hiddenRoomId" value="<%= roomId %>">
+        <input type="hidden" id="hiddenUserList" value="<%= userList %>">
+        <input type="hidden" id="hiddenPlayer" value="<%= userList.player %>">
+        <div id="background">
+        </div>
+        <div id="waiting_menu">
+            <span id="waiting_room">
 				<%= userList.title %>
 			</span>
-		</div>
+        </div>
 
 
-		<div id="chat">
-			<div id="chat_title">
-				<span>채팅창</span>
-			</div>
-			<div id="chating_list">
+        <div id="chat">
+            <div id="chat_title">
+                <span>채팅창</span>
+            </div>
+            <div id="chating_list">
 
-			</div>
-			<input type="text" id="chat_input">
-		</div>
-		<div id="member">
-			<div class="room_select" id="<%= userList.owner %>">
-				<p class="room_name">
-					<%= userList.owner %>
-				</p>
-				<span class="room_member">Lv. 1</span>
-			</div>
-		</div>
-		<script>
-			var socket = io.connect('localhost:3000/');
-			var roomId = $('#hiddenRoomId').val();
-			var userList = $('#hiddenUserList').val();
-			var player = $('#hiddenPlayer').val();
+            </div>
+            <input type="text" id="chat_input">
+        </div>
+        <div id="member">
+            <div class="room_select" id="<%= userList.owner %>">
+                <p class="room_name">
+                    <%= userList.owner %>
+                </p>
+                <span class="room_member">Lv. 1</span>
+            </div>
+        </div>
+        <script>
+            var socket = io.connect('localhost:3000/');
+            var roomId = $('#hiddenRoomId').val();
+            var userList = $('#hiddenUserList').val();
+            var player = $('#hiddenPlayer').val();
 
-			var playerList = player.split(',');
+            var playerList = player.split(',');
 
-			console.log("player: ", playerList);
+            console.log("player: ", playerList);
 
-			socket.emit('clientConn', {
-				"roomId": roomId
-			});
+            socket.emit('clientConn', {
+                "roomId": roomId
+            });
 
-			for (var i = 0; i < playerList.length; i++) {
-				if (playerList[i] != "")
-					$('#member').append('<div class="room_select" id="' + playerList[i] + '"><p class="room_name">' + playerList[i] +
-						'</p><span class="room_member">Lv. 1</span></div>');
-			}
+            for (var i = 0; i < playerList.length; i++) {
+                if (playerList[i] != "")
+                    $('#member').append('<div class="room_select" id="' + playerList[i] + '"><p class="room_name">' + playerList[i] +
+                        '</p><span class="room_member">Lv. 1</span></div>');
+            }
 
-			socket.on('newMember', function (data) {
-				$('#member').append('<div class="room_select" id="' + data.socketId + '"><p class="room_name">' + data.socketId +
-					'</p><span class="room_member">Lv. 1</span></div>');
-			});
+            socket.on('newMember', function(data) {
+                $('#member').append('<div class="room_select" id="' + data.socketId + '"><p class="room_name">' + data.socketId +
+                    '</p><span class="room_member">Lv. 1</span></div>');
+            });
 
-			$("#chat_input").keyup(function (event) {
-				if (event.which == 13) {
-					var user = $.cookie['Nickname'];
-					socket.emit('standFromClient', {
-						msg: $('#chat_input').val(),
-						who: user,
-						roomId: roomId
-					});
-					$('#chat_input').val('');
-				}
-			});
+            $("#chat_input").keyup(function(event) {
+                if (event.which == 13) {
+                    var user = $.cookie['Nickname'];
+                    socket.emit('standFromClient', {
+                        msg: $('#chat_input').val(),
+                        who: user,
+                        roomId: roomId
+                    });
+                    $('#chat_input').val('');
+                }
+            });
 
-			socket.on('standToClient', function (data) {
-				var divdiv = document.getElementById("chating_list");
+            socket.on('standToClient', function(data) {
+                var divdiv = document.getElementById("chating_list");
 
-				console.log(data.msg);
-				if (data.session == 0) {
-					window.location.href = 'localhost:3000/';
-				} else {
-					if (data.msg.length > 0) {
-						$('#chating_list').append('<p><span class="nickname">' + data.who + '</span> | ' + data.msg + '</p>');
-					}
-				}
+                console.log(data.msg);
+                if (data.session == 0) {
+                    window.location.href = 'localhost:3000/';
+                } else {
+                    if (data.msg.length > 0) {
+                        $('#chating_list').append('<p><span class="nickname">' + data.who + '</span> | ' + data.msg + '</p>');
+                    }
+                }
 
-				divdiv.scrollTop = divdiv.scrollHeight; //자동 스크롤
-			});
+                divdiv.scrollTop = divdiv.scrollHeight; //자동 스크롤
+            });
 
-			socket.on('userDis', function (data) {
-				var id = "#" + data.socketId;
-				$(id).remove();
-			});
+            socket.on('userDis', function(data) {
+                var id = "#" + data.socketId;
+                $(id).remove();
+            });
 
-			socket.on('kick', function (data) {
-				socket.emit('gone', {
-					socketId: data.socketId
-				});
-				document.location.href = "http://localhost:3000/";
-			});
-		</script>
-	</body>
+            socket.on('kick', function(data) {
+                socket.emit('gone', {
+                    socketId: data.socketId
+                });
+                document.location.href = "http://localhost:3000/";
+            });
 
-	</html>
+            function drawing_add() {
+                var w = document.getElementById('waiting_menu');
+                var i = document.getElementById('owner_drawing');
+                var start_btn = document.getElementById('start_btn');
+                i.classList.remove('hidden_panel');
+                w.classList.add('hidden_panel');
+                start_btn.classList.add('hidden_panel');
+            }
+        </script>
+    </body>
+
+    </html>

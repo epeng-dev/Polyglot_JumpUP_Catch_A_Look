@@ -1,18 +1,19 @@
-body{
+body {
     font-family: 'NanumSquare';
     margin: 0;
-    color:#512323;
+    color: #512323;
     background-size: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center center;
-    background-image: url(http://rael.oo.gd/MTcxMTI4AGMwNL.png);
+    background-image: url("https://lh3.googleusercontent.com/1jSwrUjmz1aJHWXThrsGY-X8jU9h8s1Twpjnb0ORpHKaN2i49ToQCSSTqIX6RDmTGvO35LlJqZ62I7gG2PKYALPWSSxkZNTP6dUqZh6ERdLROeBhWMV65jVkO4Es58V5B5mRRWrctAnDB2eOSCrVQOObTjPULyx8nfS5jxSt56a56jFSPVEVjP42KHjE_89ry_RkkHK-eLqiR0ad7ed6DH7xb2-AQAGYkS0Jb-lc9j6cfSBRaK_FtiEo34qrf6lHpyZApJbIf0kKUduxgqkTUVTV-zQ5VuajMYT0cHditQjHl6HZnQFN_jN0TdVZTX0yb6K72i36b-9WSomZnzAZLrBS5Q6i_lWAzkxWV72l8SENhnDQgSEFHTZMPAYt5aXFgkn97sL3tPn0Iit47XlR1ZtHpBRZJs5glD2aOZBd-HZB9lNvzSdGkDAid41U-QqzpPjtis2SbcZHLFxuym2wpQCmNnbHppBIkePrJA12J8v__p2dwtb3B5h4bnpSSC92ued7-l7_dSTDrsi-ERCCUJ2kP3wN23wObXalsWP7ZUKTHITsL-HJ5yWpzBqGpS5z3Gw5uZ8RaQ6AqzNloMVBmoP1fyajvRRcxvLeqiM=w1108-h623-no");
 }
-#background{
+
+#background {
     position: absolute;
     top: 5vh;
     left: 4vw;
     height: 90vh;
     width: 92vw;
-    background-color: rgba(255,255,255,0.3);
+    background-color: rgba(255, 255, 255, 0.3);
 }

@@ -11,6 +11,14 @@
         <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <script src="/socket.io/socket.io.js"></script>
+        <script src="fabric.js"></script>
+        <script src="editer.js"></script>
+        <script src="Drawing.js"></script>
+        <link rel="stylesheet" href="css/Drawing_time.css">
+        <link rel="stylesheet" href="../font.css">
+        <link rel="stylesheet" href="css/users_game_room.css">
+        <link rel="stylesheet" href="css/owner_game.css">
+        <link rel="stylesheet" href="range.css">
     </head>
 
     <body>
@@ -20,13 +28,50 @@
 
         <div id="background">
         </div>
-        <div id="waiting_menu">
-            <span id="waiting_room">
-                <%= title %>
-            </span>
+        <div id="waiting">
+            <div id="waiting_menu">
+                <span id="waiting_room">
+                    <%= title %>
+                </span>
+            </div>
+            <div id="member">
+                <div class="room_select">
+                    <p class="room_name" id="<%= owner %>">
+                        <%= owner %>
+                    </p>
+                    <span class="room_member">Lv. 1</span>
+                </div>
+            </div>
         </div>
 
 
+        <div id="owner_drawing" class="hidden_panel">
+            <div id="drawing_panel" class="dr">
+                <canvas id='c' height='365' width='690'></canvas>
+            </div>
+            <span id="palette">팔레트</span>
+            <div>
+                <div id="pick">
+                    <div id="#000000" class="color black"></div>
+                    <div id="#FFFFFF" class="color white"></div>
+                    <div id="#FF0000" class="color red"></div>
+                    <div id="#00FF00" class="color green"></div>
+                    <div id="#0000FF" class="color blue"></div>
+                    <div id="#FFFF00" class="color yellow"></div>
+                    <div id="#00FFFF" class="color bluish_green"></div>
+                    <div id="#FF00FF" class="color purple"></div>
+                    <input type="color" id="choose_color">
+                </div>
+
+            </div>
+            <div class="menu_title">
+                <span>펜 굵기</span>
+                <div id="pen_width"><span id="info_pen_width">20</span><input type="range" min="1" max="150" value="20" id="change_pen_width">
+                    <button id="clear-canvas" onclick="all_clear();">전체 지우기</button>
+                </div>
+            </div>
+
+        </div>
         <div id="chat">
             <div id="chat_title">
                 <span>채팅창</span>
@@ -36,16 +81,8 @@
             </div>
             <input type="text" id="chat_input">
         </div>
-        <div id="member">
-            <div class="room_select">
-                <p class="room_name" id="<%= owner %>">
-                    <%= owner %>
-                </p>
-                <span class="room_member">Lv. 1</span>
-            </div>
-        </div>
         <div style="position:absolute; bottom:7.5vh; left:28vw; height:12.5vh; z-index:50;">
-            <img src="start.png" style="cursor:pointer; height:100%;" alt="스타트 버튼" onclick="start()">
+            <img src="start.png" style="cursor:pointer; height:100%;" alt="스타트 버튼" onclick="drawing_add()">
         </div>
         <script>
             var socket = io.connect('localhost:3000/');
@@ -67,7 +104,7 @@
                 "roomId": roomId
             });
 
-            $("#chat_input").keyup(function (event) {
+            $("#chat_input").keyup(function(event) {
                 if (event.which == 13) {
                     var user = getCookie("io");
                     socket.emit('standFromClient', {
@@ -79,28 +116,38 @@
                 }
             });
 
-            socket.on("standToClient", function (data) {
+            socket.on("standToClient", function(data) {
                 if (data.msg.length > 0) {
                     $('#chating_list').append('<p><span class="nickname">' + data.who + '</span> | ' + data.msg +
                         '</p>');
                 }
             });
 
-            socket.on('newMember', function (data) {
+            socket.on('newMember', function(data) {
                 $('#member').append('<div class="room_select" id="' + data.socketId + '"><p class="room_name">' +
                     data.socketId + '</p><span class="room_member">Lv. 1</span></div>');
             });
 
-            socket.on('userDis', function (data) {
+            socket.on('userDis', function(data) {
                 var id = "#" + data.socketId;
                 $(id).remove();
             });
 
-            $('#gameStart').click(function () {
+            $('#gameStart').click(function() {
                 socket.emit('gameStart', {
                     "roomId": roomId
                 });
             });
+
+            function drawing_add() {
+                alert("시작 버튼 누르면 시작되는 거다 영은아");
+                var w = document.getElementById('waiting');
+                var i = document.getElementById('owner_drawing');
+                var start_btn = document.getElementById('start_btn');
+                i.classList.remove('hidden_panel');
+                w.classList.add('hidden_panel');
+                start_btn.classList.add('hidden_panel');
+            }
         </script>
     </body>
 
